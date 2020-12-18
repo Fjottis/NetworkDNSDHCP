@@ -104,6 +104,30 @@ def sorted_print_db(database, table, sorted_elt, decreasing=False):
         print("Erreur lors de l'affichage", error)
 
 
+def get_print_db(database, table, sorted_elt):
+    try:
+        conn = sqlite3.connect(database)
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM " + table + " GROUP BY " + sorted_elt + " ;")
+        conn.commit()
+        res = cur.fetchall()
+
+        if table == 'Logs':
+            for row in res:
+                print("ID: ", row[0], " Type: ", row[1], "  Protocol: ", row[2], "   MAC: ", row[3], "    IP_SRC: ",
+                      row[4], "IP_DST: ", row[5])
+                print("Content: ", row[6])
+                print("Time: ", row[7], "Country: ", row[8], "\n")
+        cur.close()
+
+        print("Recherche réussie", res)
+
+        cur.close()
+        conn.close()
+    except sqlite3.Error as error:
+        print("Erreur lors de l'affichage", error)
+
+
 def insert_db(database, table, elt):
     try:
         conn = sqlite3.connect(database)
@@ -132,6 +156,3 @@ def function_test():
                "2017-01-01 10:20:05.123", "TCP"]
     insert_db(our_db, 'Logs', element)
     sorted_print_db(our_db, 'Logs', 'MAC', True)
-
-
-

@@ -1,6 +1,8 @@
-scapy
-plyer
-pytz
+scapy~=2.4.4
+plyer~=2.0.0
+pytz~=2020.1
 datetime
 python-geoip-python3
 python-geoip-geolite2
+argparse~=1.4.0
+python-geoip~=1.2

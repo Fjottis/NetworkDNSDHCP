@@ -1,6 +1,8 @@
-# Importing libraries
+# Importing librarie
+
 from __future__ import print_function
 from scapy.all import *
+from scapy.layers.dhcp import DHCP, BOOTP
 from scapy.layers.dns import DNS, DNSRR
 from scapy.layers.inet import IP, UDP, TCP
 from scapy.layers.inet6 import IPv6
@@ -11,6 +13,8 @@ from datetime import datetime
 
 import pytz
 # Use to manipulate the db
+from scapy.layers.l2 import Ether
+
 from Database import *
 # Use to notify by mail or on the computer
 from Notification import *
@@ -63,6 +67,7 @@ def get_option(dhcp_options, key):
 
 
 def process_DHCP(packet, verb=False):
+    layer = ""
     # Get the time
     tz = pytz.timezone('Europe/Amsterdam')
     time = datetime.now(tz)
@@ -73,7 +78,6 @@ def process_DHCP(packet, verb=False):
     if packet.haslayer(DHCP):
 
         if verb:
-
             # DHCP discover
             if DHCP in packet and packet[DHCP].options[0][1] == 1:
                 print('---')
@@ -107,7 +111,6 @@ def process_DHCP(packet, verb=False):
                       f"{lease_time}, router: {router}, name_server: {name_server}, "
                       f"domain: {domain}")
 
-
             # DHCP request
             elif DHCP in packet and packet[DHCP].options[0][1] == 3:
                 print("--------------------")
@@ -120,8 +123,6 @@ def process_DHCP(packet, verb=False):
                 requested_addr = get_option(packet[DHCP].options, 'requested_addr')
                 hostname = get_option(packet[DHCP].options, 'hostname')
                 print(f"Host {hostname} ({packet[Ether].src}) requested {requested_addr}")
-
-
 
             # DHCP ack
             elif DHCP in packet and packet[DHCP].options[0][1] == 5:
@@ -140,7 +141,7 @@ def process_DHCP(packet, verb=False):
                 print(f"DHCP Server {packet[IP].src} ({packet[Ether].src}) "
                       f"acked {packet[BOOTP].yiaddr}")
 
-                print(f"DHCP Options: subnet_mask: {subnet_mask}, lease_time: "
+                print(f"DHCP Options: subnet_mask: {subset_mask}, lease_time: "
                       f"{lease_time}, router: {router}, name_server: {name_server}")
 
             else:
@@ -150,7 +151,6 @@ def process_DHCP(packet, verb=False):
                 print(ls(packet))
         else:
             layer = packet.getlayer(2)
-
         if packet[Ether].src in list_banned_MAC:
             text = packet[Ether].src + " made a connexion and is supposed to be banned "
             notify('Warning Unauthorized MAC address detected', text)
@@ -164,6 +164,8 @@ def process_DHCP(packet, verb=False):
 
 def process_DNS(packet, verb=False):
     content = ""
+    ip_dst = ""
+    ip_src = ""
     type_packet = ""
 
     if packet.haslayer(DNS):
@@ -181,7 +183,7 @@ def process_DNS(packet, verb=False):
         elif packet.haslayer(IP):
             ip_src = packet[IP].src
             ip_dst = packet[IP].dst
-            # match = geolite2.lookup(str(ip_dst))
+            match = geolite2.lookup(str(ip_dst))
         if match is not None:
             country = match.country
         # print("IP destination :", ip_dst)
@@ -189,7 +191,6 @@ def process_DNS(packet, verb=False):
         # print("IP source country : ", match.country)
         # Get the MAC address
         mac_src = packet.src
-        mac_dst = packet.dst
         # print("Mac source :", mac_src)
 
         # Get the content of
@@ -202,7 +203,7 @@ def process_DNS(packet, verb=False):
         else:
             type_packet = 'Not Found'
         content = repr(packet[DNS])
-        if verbose:
+        if verb:
             print("\nPacket ", type_packet, "\n", packet.summary())
             print("--------------------")
             print('Name:', packet[DNS].name)
@@ -250,4 +251,3 @@ if __name__ == "__main__":
     iface = args.iface
     verbose = args.verbose
     sniff_packets(iface)
-
