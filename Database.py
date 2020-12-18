@@ -131,10 +131,7 @@ def function_test():
     element = ["DHCP", "8D:8D:DD:0F:16:1F", "121.195.118.141", "9.86.90.127", "Test", "Romania",
                "2017-01-01 10:20:05.123", "TCP"]
     insert_db(our_db, 'Logs', element)
-    sorted_print_db(our_db,'Logs', 'MAC', True)
+    sorted_print_db(our_db, 'Logs', 'MAC', True)
 
 
-if __name__ == '__main__':
-    # function_test()
-    # select_db('Logs', 'MAC', '8c:f8:13:3b:43:5a')
-    print()
+

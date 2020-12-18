@@ -15,5 +15,3 @@ def main():
     while True:
         time.sleep(1)
         logger.info("A Sample Log Statement")
-
-main()

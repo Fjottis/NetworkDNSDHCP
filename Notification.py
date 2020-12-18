@@ -32,7 +32,7 @@ def notify(title, text):
         print("OS Platform not recognized")
 
 
-def mail(receiver, sujet, content):
+def mail(receiver, subject, content):
     sender = ''
     password = ''
     server = 'smtp.gmail.com'
@@ -43,12 +43,8 @@ def mail(receiver, sujet, content):
 
     message['From'] = sender
     message['To'] = receiver
-    message['Subject'] = sujet
+    message['Subject'] = subject
 
     message.attach(MIMEText(content, 'plain'))
     server.send_message(message)
     server.quit()
-
-
-if __name__ == '__main__':
-    mail('dnsdhcp@gmail.com', 'TestPython', 'This is the test :')
