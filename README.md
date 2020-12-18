@@ -31,6 +31,5 @@ Examples :
 * `python3 main.py -i en1`  
 * `python3 main.py -i en1 -v`
 
-If you want tp run the program that saves the databse eac
 You can also filter more MAC address by adding them directly in the table
 UnauthorizedDNS
