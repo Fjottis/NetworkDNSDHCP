@@ -5,37 +5,40 @@ from plyer import notification  # Pour Windows
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from sys import platform
 
 
-def notify(title, text, ostype="Mac"):
+def notify(title, text):
     path = '/home/theman/Documents/NetworkDNSDHCP'
-    if ostype == "Mac":
+    if platform == 'darwin':
         os.system("""
               osascript -e 'display notification "{}" with title "{}"'
               """.format(text, title))
-    elif ostype == "Windows":
+    elif platform == 'win32':
         notification.notify(
             title=title,
             message=text,
             timeout=10,
-            app_icon=path + "/warning-icon.ico"
+            app_icon=path + "/icons/warning-icon.ico"
         )
-    elif ostype == "Unix":
+    elif platform == 'linux':
         notification.notify(
             title=title,
             message=text,
             timeout=10,
-            app_icon=path + "/warning-icon.png"
+            app_icon=path + "/icons/warning-icon.png"
         )
+    else:
+        print("OS Platform not recognized")
 
 
 def mail(receiver, sujet, content):
     sender = ''
-    mdp = ''
+    password = ''
     server = 'smtp.gmail.com'
     port = 465
     server = smtplib.SMTP_SSL(server, port)
-    server.login(sender, mdp)
+    server.login(sender, password)
     message = MIMEMultipart()
 
     message['From'] = sender

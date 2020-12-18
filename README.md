@@ -3,19 +3,16 @@ Instruction for DNS/DHCP trace Project
 
 ## Installation
 
-Basic instalation : 
+Basic installation : 
 1. Install the libraries required with : `pip install
 -r requirements.txt` in your file
 
 2. Verify that you have the database in the file
-
-3. Depending the OS your using ,you should open the file
-notification.py and in the function notification replace ostype:‘Mac’ to
-your OS . Write Mac,Linux,Windows
    
 Optional : 
 1. If you want the icon of the notification to be printed change the path for the path of the repository in your computer
-2. If you want the function email to work ,add your email address in the file
+2. If you want the function email to work ,add your email address in the function mail as sender and the password of your address in password.  
+example : sender = 'dnsdhcpproject@gmail.com' password = 'mypassword'
 
 
 ## Run the program
@@ -34,5 +31,5 @@ Examples :
 * `python3 main.py -i en1`  
 * `python3 main.py -i en1 -v`
 
-You can also filter more MAC adress by adding them directly in the table
+You can also filter more MAC address by adding them directly in the table
 UnauthorizedDNS
