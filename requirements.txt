@@ -1,0 +1,6 @@
+scapy
+plyer
+pytz
+datetime
+python-geoip-python3
+python-geoip-geolite2
