@@ -12,6 +12,8 @@ Instruction for DNS/DHCP trace Project
 notification.py and in the funstion notification replace ostype:‘Mac’ to
 your OS . Write Mac,Linux,Windows
 
+Optional - If you want the icon of the notification to be printed change th path
+
 ## Run the program
 
 Run the following command in the repository location : `python3 main.py`

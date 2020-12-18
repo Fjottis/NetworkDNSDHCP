@@ -8,6 +8,7 @@ from email.mime.text import MIMEText
 
 
 def notify(title, text, ostype="Mac"):
+    path = '/home/theman/Documents/NetworkDNSDHCP'
     if ostype == "Mac":
         os.system("""
               osascript -e 'display notification "{}" with title "{}"'
@@ -17,19 +18,20 @@ def notify(title, text, ostype="Mac"):
             title=title,
             message=text,
             timeout=10,
-            app_icon="./icons/warning-icon.ico"
+            app_icon=path + "/warning-icon.ico"
         )
     elif ostype == "Unix":
         notification.notify(
             title=title,
             message=text,
             timeout=10,
-            app_icon="./icons/warning-icon.png"
+            app_icon=path + "/warning-icon.png"
         )
 
 
 def mail(receiver, sujet, content):
-
+    sender = ''
+    mdp = ''
     server = 'smtp.gmail.com'
     port = 465
     server = smtplib.SMTP_SSL(server, port)
