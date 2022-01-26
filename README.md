@@ -33,3 +33,9 @@ Examples :
 
 You can also filter more MAC address by adding them directly in the table
 UnauthorizedDNS
+
+DISCLAIMER:
+
+EN I am not responsible for the misuse of this script, it isn't in any case a tool to be used for malicious purposes. 
+
+FR Je ne suis pas responsable d'abus d'utilisation de ce script par autrui, il ne devrait en aucun cas être utilisé à des fins malveillantes. 
