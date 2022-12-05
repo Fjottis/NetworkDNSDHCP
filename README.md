@@ -12,7 +12,7 @@ Basic installation :
 Optional : 
 1. If you want the icon of the notification to be printed change the path for the path of the repository in your computer
 2. If you want the function email to work ,add your email address in the function mail as sender and the password of your address in password.  
-example : sender = 'dnsdhcpproject@gmail.com' password = 'mypassword'
+example : sender = 'myemail@gmail.com' password = 'mypassword'
 
 
 ## Run the program
